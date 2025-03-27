@@ -1,10 +1,5 @@
-import os
 from flask import Flask, render_template
-import requests
-import jsonify
 from google.cloud.sql.connector import Connector
-from flask_sqlalchemy import SQLAlchemy
-import pg8000
 
 app = Flask(__name__)
 
@@ -28,7 +23,8 @@ def getconn():
 
     return conn
 
-# needed data columns
+
+# data columns, database needed 
 db = [
     "user_info",
     "education",
@@ -41,7 +37,7 @@ db = [
 ]
 
 col = [
-    ["ch_name", "en_name", "email", "phone", "github"],
+    ["ch_name", "en_name", "email", "phone", "github", "address"],
     ["start_date", "end_date", "school", "class"],
     ["category", "tools"],
     ["category", "test"],
@@ -50,7 +46,6 @@ col = [
     ["work_id", "category", "description"],
     ["title", "skill", "description"]
 ]
-
 
 
 # get resume information
@@ -74,37 +69,20 @@ def get_info(cursor, db, col, data_list):
     return data_list
 
 
-
 @app.route("/")
-def home():
+def resume():
     conn = getconn()
     cursor = conn.cursor()
     data = get_info(cursor, db, col, data_list)
     print(data)
     cursor.close()
     conn.close()
-    return "data collected" ### render_template how to send parameter !start here !
-
+    return render_template("index.html", data=data)
 
 
 if __name__ == "__main__":
     app.run(host = "0.0.0.0", port = 5000, debug = True)
 
-"""
-
-   user_info, education, skills, languages, advantages, experiences, work_skills, projects = get_info(cursor)
-
-    render_template("index.html", 
-                           user_info=user_info, 
-                           education=education, 
-                           skills=skills, 
-                           languages=languages,
-                           advantages=advantages,
-                           experiences=experiences,
-                           work_skills=work_skills,
-                           projects=projects)
-
-"""
 
 """
 render_template('index.html', data=rows)
