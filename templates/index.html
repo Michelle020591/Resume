@@ -14,100 +14,88 @@
         <script src="script.js" defer></script>
     </head>
     <body>
-        <div id="ch_name"><h1>{{ user_info[0][0]}}</h1></div>
-        <div id="en_name"><h1>Michelle Lee</h1></div>
+        <div id="ch_name"><h1>{{ data.user_info[0].ch_name }}</h1></div>
+        <div id="en_name"><h1>{{ data.user_info[0].en_name }}</h1></div>
         <div id="info_wrapper">
             <div id="contact">
                 <h3>Contact</h3>
                 <ul>
-                    <li><i class="fas fa-phone"></i> <a href="tel:+886972009925">0972-009-925</a></li>
-                    <li><i class="fas fa-envelope"></i> <a href="mailto:mimilee2733@gmail.com">mimilee2733@gmail.com</a></li>
-                    <li><i class="fab fa-home"></i>台北市大安區</li>
-                    <li><i class="fab fa-github"></i> <a href="https://github.com/Michelle020591">https://github.com/Michelle020591</a></li>
-
+                    <li><i class="fas fa-phone"></i> <a href="tel:{{ data.user_info[0].phone }}">{{ data.user_info[0].phone }}</a></li>
+                    <li><i class="fas fa-envelope"></i> <a href="mailto:{{ data.user_info[0].email }}">{{ data.user_info[0].email }}</a></li>
+                    <li><i class="fa-solid fa-house"></i>{{ data.user_info[0].address }}</li>
+                    <li><i class="fab fa-github"></i> <a href="{{ data.user_info[0].github }}">{{ data.user_info[0].github }}</a></li>
                 </ul>
             </div>
             <div id="education">
                 <h3>Education</h3>
                 <ul>
-                    <li>台灣大學 生命科學系</li>
-                    <li>2021-2024</li>
-                    <li>相關課程<ul><li>商管程式設計</li><li>統計學</li><li>行銷管理</li></ul></li>
+                    <li>{{ data.education[0].school }}</li>
+                    <li>{{ data.education[0].start_date.strftime('%Y') }}-{{ data.education[0].end_date.strftime('%Y') }}</li>
+                    <li>相關課程:{{ data.education[0].class }}</li>
                 </ul>
                 <ul>
-                    <li>中山女高</li>
-                    <li>2017-2020</li>
+                    <li>{{ data.education[1].school }}</li>
+                    <li>{{ data.education[1].start_date.strftime('%Y') }}-{{ data.education[1].end_date.strftime('%Y') }}</li>
                 </ul>
             </div>
             <div id="skill">
                 <h3>Skills</h3>
                 <ul>
-                    <li>程式語言：Python</li>
-                    <li>資料庫：SQL Server</li>
-                    <li>版本控制：Git, GitHub</li>
-                    <li>自動化與爬蟲：Selenium, BeautifulSoup</li>
-                    <li>數位設計：Figma, Notion, Procreate</li>
-                    <li>AI：ChatGPT</li>
+                    {% for skill in data.skill %}
+                    <li>{{ skill.category }}: {{ skill.tools }}</li>
+                    {% endfor %}
                 </ul>
             </div>
             <div id="language">
                 <h3>Languages</h3>
                 <ul>
-                    <li>中文 母語</li>
-                    <li>英文 TOEIC 935分</li>
-                    <li>日文 JLPT 180分</li>
+                    {% for language in data.language %}
+                    <li>{{ language.category }} {{ language.test }}</li>
+                    {% endfor %}
                 </ul>
-
             </div>
         </div>
         <div id="advantage">
             <h3>Why Me?</h3>
             <ul>
-                <li>跨領域背景：～</li>
-                <li>語文能力：～</li>
-                <li>善用工具：～</li>
-                <li>時間管理：</li>
+                {% for advantage in data.advantage %}
+                <li>{{ advantage.advantage }}: {{ advantage.description }}</li>
+                {% endfor %}
             </ul>
         </div>
         <div id="experience">
             <h3>Work Experiences</h3>
             <div class="work-experience">
-                <h4>TAROBO</h4>
-                <h4>數據分析實習生</h4>
-                <h4>2023.01-2024.09</h4>
+                <h4>{{ data.experience[0].company }}</h4>
+                <h4>{{ data.experience[0].role }}</h4>
+                <h4>{{ data.experience[0].start_date.strftime('%Y.%m') }}-{{ data.experience[0].end_date.strftime('%Y.%m') }}</h4>
                 <ul>
-                    <li>Python：～</li>
-                    <li>：～</li>
-                    <li>：～</li>
-                    <li>：</li>
-                    <li>：</li>
-                    <li>：</li>
+                    {% for skill in data.work_skill %}
+                        {% if skill.work_id == 2 %}
+                            <li>{{ skill.category }}: {{ skill.description }}</li>
+                        {% endif %}
+                    {% endfor %}
                     <li>專案經驗
                         <ul>
-                            <li>自動化與爬蟲
-                                <ul>
-                                    <li>技術</li>
-                                    <li>開發</li>
-                                </ul>
-                            </li>
-                            <li>金融市場數據
-                                <ul>
-                                    <li>技術</li>
-                                    <li>API</li>
-                                    <li>SQL</li>
-                                </ul>
-                            </li>
+                            {% for project in data.project %}
+                                <h4>{{ project.title }}</h4>
+                                <li>技術: {{ project.skill }}</li>
+                                <li>{{ project.description }}</li>
+                            {% endfor %}
                         </ul>
                     </li>  
                 </ul>
             </div>
             <div class="work-experience">
-                <h4>美術家教</h4>
-                <h4>2022.05-now</h4>
+                <h4>{{ data.experience[1].company }}</h4>
+                <h4>{{ data.experience[1].role }}</h4>
+                <h4>{{ data.experience[1].start_date.strftime('%Y.%m') }}-{{ data.experience[1].end_date.strftime('%Y.%m') }}</h4>
                 <ul>
-                    <li>美術家教</li>
-                    <li>設計貼圖</li>
-                    <li>UI/UX</li>
+                    {% for skill in data.work_skill %}
+                        {% if skill.work_id == 3 %}
+                            <li>{{ skill.category }}: {{ skill.description }}</li>
+                        {% endif %}
+                    {% endfor %}
                 </ul>
             </div>
         </div>
