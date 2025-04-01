@@ -9,13 +9,24 @@
         <meta name="description" content="李宣葇的個人履歷">
         <meta name="author" content="李宣葇">
         <meta name="theme-color" content="#f5c101">
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="/static/style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-        <script src="script.js" defer></script>
+        <script src="/static/script.js" defer></script>
     </head>
     <body>
-        <div id="ch_name"><h1>{{ data.user_info[0].ch_name }}</h1></div>
-        <div id="en_name"><h1>{{ data.user_info[0].en_name }}</h1></div>
+        <div id="ai-assistant">
+            <a href="{{ url_for('assistant') }}">
+                <img src="{{ url_for('static', filename='ai_assistant.png') }}" alt="AI 助理">
+            </a>
+        </div>
+        <div id="head">
+            <div id="name">
+                <div id="ch_name"><h1>{{ data.user_info[0].ch_name }}</h1></div>
+                <div id="en_name"><h1>{{ data.user_info[0].en_name }}</h1></div>
+            </div>
+            <img id="photo" src="/static/my_photo.jpeg">
+        </div>
+
         <div id="info_wrapper">
             <div id="contact">
                 <h3>Contact</h3>
@@ -71,7 +82,7 @@
                 <h4>{{ data.experience[0].start_date.strftime('%Y.%m') }}-{{ data.experience[0].end_date.strftime('%Y.%m') }}</h4>
                 <ul>
                     {% for skill in data.work_skill %}
-                        {% if skill.work_id == 2 %}
+                        {% if skill.work_id == 1 %}
                             <li>{{ skill.category }}: {{ skill.description }}</li>
                         {% endif %}
                     {% endfor %}
@@ -92,7 +103,7 @@
                 <h4>{{ data.experience[1].start_date.strftime('%Y.%m') }}-{{ data.experience[1].end_date.strftime('%Y.%m') }}</h4>
                 <ul>
                     {% for skill in data.work_skill %}
-                        {% if skill.work_id == 3 %}
+                        {% if skill.work_id == 2 %}
                             <li>{{ skill.category }}: {{ skill.description }}</li>
                         {% endif %}
                     {% endfor %}
@@ -101,4 +112,3 @@
         </div>
     </body>
 </html> 
-
