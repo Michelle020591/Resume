@@ -1,30 +1,45 @@
+import psycopg2
 from flask import Flask, render_template
-from google.cloud.sql.connector import Connector
+import requests
+import jsonify
+import openai
 
 app = Flask(__name__)
 
-# connect to cloud sql
-connection_name = "clean-pilot-454602-v1:asia-east1:resume-db"
-driver = "pg8000"
-db_user = "postgres"
-db_pass = "10350036"
-db_name = "resume_db"
+# connect to postgreSQL
+def get_conn():
+  conn = psycopg2.connect(
+      dbname = "postgres",
+      user = "jack",
+      password = "12345678",
+      host = "localhost"
+  )
+  print("connect to PostgreSQL successfully")
 
-def getconn():
-    connector = Connector()
-    conn= connector.connect(
-        connection_name,
-        driver,
-        user = db_user,
-        password = db_pass,
-        db = db_name,
-    )
-    print("connect to cloud SQL successfully")
-
-    return conn
+  return conn
 
 
-# data columns, database needed 
+# get resume data
+resume_data = {} #resume_data = []
+def get_info(cursor, db, col, resume_data):
+    for i in range(len(col)):
+        database = db[i]
+        column = col[i]
+        query = f"SELECT {', '.join(column)} FROM {database}"
+        if i == 2: # skill
+            query = """
+                SELECT category, STRING_AGG(tools, ', ') AS tool_list
+                FROM skill
+                GROUP BY category;
+            """           
+        cursor.execute(query)
+        data = cursor.fetchall()
+        #resume_data.append({database: [dict(zip(column, row)) for row in data]})
+        resume_data[database] = [dict(zip(column, row)) for row in data]
+    print(resume_data)
+
+    return resume_data
+
 db = [
     "user_info",
     "education",
@@ -48,64 +63,70 @@ col = [
 ]
 
 
-# get resume information
-data_list = {} #data_list = []
-def get_info(cursor, db, col, data_list):
-    for i in range(len(col)):
-        database = db[i]
-        column = col[i]
-        query = f"SELECT {', '.join(column)} FROM {database}"
-        if i == 2: # skill
-            query = """
-                SELECT category, STRING_AGG(tools, ', ') AS tool_list
-                FROM skill
-                GROUP BY category;
-            """           
-        cursor.execute(query)
-        data = cursor.fetchall()
-        #data_list.append({database: [dict(zip(column, row)) for row in data]})
-        data_list[database] = [dict(zip(column, row)) for row in data]
 
-    return data_list
+def wrap():
+   global resume_data
+   conn = get_conn()
+   cursor = conn.cursor()
+   resume_data = get_info(cursor, db, col, resume_data)
+   cursor.close()
+   conn.close()
 
+   return resume_data
+
+# OpenAI login
+# https://realnewbie.com/basic-concent/how-to-obtain-openai-api-key-step-by-step-guide/
+# openai.api_key = "sk-xxxxxxxxxx"
 
 @app.route("/")
 def resume():
-    conn = getconn()
-    cursor = conn.cursor()
-    data = get_info(cursor, db, col, data_list)
-    print(data)
-    cursor.close()
-    conn.close()
-    return render_template("index.html", data=data)
+    resume_data = wrap()
+    return render_template("index.html", data=resume_data)
+
+
+@app.route('/assistant')
+def assistant():
+    return render_template('assistant.html')
+
+
+"""
+records = {}
+
+@app.route("/chat", methods=["post"])
+def chat(records):
+    resume_data = wrap()
+    # get user question
+    user_question = requests.json.get("input")
+    prompt = f"根據以下履歷資料：{resume_data}\n\n回答問題：{user_question}"
+    print(prompt)
+
+    # short-term memory
+    if "chat_history" not in records:
+        records["chat_history"] = [{"role": "system", "content": "你是一個專業的履歷Chatbot，可以根據履歷資料回答使用者問題"}]
+
+    records["chat_history"].append({"role": "user", "content": prompt})
+"""
+"""
+  # send question to OpenAI
+  response = openai.ChatCompletion.create(
+      model = "gpt-3.5-turbo",
+      messages = records["chat_history"]
+  )
+
+  print(response) # 資料型態未知！！！
+
+  #
+  records["chat_history"].append({"role": "assistant", "content": response})
+
+  return jsonify({"response": response})"
+"""
 
 
 if __name__ == "__main__":
     app.run(host = "0.0.0.0", port = 5000, debug = True)
 
 
-"""
-render_template('index.html', data=rows)
-def getconn():
-    conn= connector.connect(
-        connection_name,
-        driver,
-        db_user,
-        db_pass,
-        db_name
-    )
-    return conn
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+pg8000://"
-app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {"creator":getconn}
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-db = SQLAlchemy(app)
 
-@app.route("/test_db")
-def test_db():
-    
-    cursor.execute("SELECT 'Database Connected!'")
-    result = cursor.fetchone()
-    cursor.close()
-    return result[0]
 
-"""
+
+
