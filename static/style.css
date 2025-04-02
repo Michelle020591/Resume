@@ -20,7 +20,14 @@ body {
 
 /* 區塊設定 */
 #name {
-    margin-top: 30px;
+    text-align: center;
+}
+
+#photo-container {
+    display: flex;
+    align-items: center; /* 垂直置中 */
+    justify-content: center; /* 水平置中 */
+    position: relative;
 }
 
 #photo {
@@ -28,6 +35,22 @@ body {
     height: 300px;
     border-radius: 50%;
     object-fit: cover;
+    display: block;
+    margin: 0 auto;
+}
+
+#ai-assistant {
+    position: absolute;
+    left: 60px; /* 調整 AI 助理的位置，讓它在圖片左邊 */
+    top: 30%; /* 垂直置中 */
+    transform: translateY(-30%);
+    width: 60px; /* AI 助理大小 */
+    height: 60px;
+}
+
+#ai-assistant img {
+    width: 400px;
+    height: 400px;
 }
 
 #contact, #skill, #education, #language, #advantage, #experience {
