@@ -40,6 +40,27 @@ def get_info(cursor, db, col, resume_data):
 
     return resume_data
 
+
+# connect to postgreSQL and get resume data
+def wrap():
+   global resume_data
+   conn = get_conn()
+   cursor = conn.cursor()
+   resume_data = get_info(cursor, db, col, resume_data)
+   cursor.close()
+   conn.close()
+
+   return resume_data
+
+
+# OpenAI login
+# https://realnewbie.com/basic-concent/how-to-obtain-openai-api-key-step-by-step-guide/
+# openai.api_key = "sk-xxxxxxxxxx"
+
+
+
+## main function starts here ##
+
 db = [
     "user_info",
     "education",
@@ -62,21 +83,6 @@ col = [
     ["title", "skill", "description"]
 ]
 
-
-
-def wrap():
-   global resume_data
-   conn = get_conn()
-   cursor = conn.cursor()
-   resume_data = get_info(cursor, db, col, resume_data)
-   cursor.close()
-   conn.close()
-
-   return resume_data
-
-# OpenAI login
-# https://realnewbie.com/basic-concent/how-to-obtain-openai-api-key-step-by-step-guide/
-# openai.api_key = "sk-xxxxxxxxxx"
 
 @app.route("/")
 def resume():
