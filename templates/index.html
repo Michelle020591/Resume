@@ -14,17 +14,20 @@
         <script src="/static/script.js" defer></script>
     </head>
     <body>
-        <div id="ai-assistant">
-            <a href="{{ url_for('assistant') }}">
-                <img src="{{ url_for('static', filename='ai_assistant.png') }}" alt="AI 助理">
-            </a>
-        </div>
         <div id="head">
             <div id="name">
                 <div id="ch_name"><h1>{{ data.user_info[0].ch_name }}</h1></div>
                 <div id="en_name"><h1>{{ data.user_info[0].en_name }}</h1></div>
             </div>
-            <img id="photo" src="/static/my_photo.jpeg">
+            <div id="photo-container">
+                <img id="photo" src="/static/my_photo.jpeg">
+                <div id="ai-assistant">
+                    <a href="{{ url_for('assistant') }}">
+                        <img src="{{ url_for('static', filename='AI_assistant.svg') }}" alt="AI 助理">
+                    </a>
+                </div>
+            </div>
+
         </div>
 
         <div id="info_wrapper">
