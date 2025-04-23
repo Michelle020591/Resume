@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="format-detection" content="telephone=no">
+        <title>個人履歷</title>
+        <link rel="canonical" href="/index.html">
+        <meta name="description" content="李宣葇的個人履歷回饋表單">
+        <meta name="author" content="李宣葇">
+        <meta name="theme-color" content="#0073e6">
+        <link rel="stylesheet" href="/static/style_1.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <script src="/static/script.js" defer></script>
+    </head>
+    <body>
+        <div id="head">
+            <h2>使用者回饋表單</h2>
+        </div>
+        <form id="fb-form" onsubmit="sendFeedback(event)">
+            <div id="star-rating">
+                <h3>您覺得這份履歷頁整體如何？</h3><br>
+                <div class="stars">
+                    <input type="radio" name="rating" id="star5" value="5"><label for="star5">★</label>
+                    <input type="radio" name="rating" id="star4" value="4"><label for="star4">★</label>
+                    <input type="radio" name="rating" id="star3" value="3"><label for="star3">★</label>
+                    <input type="radio" name="rating" id="star2" value="2"><label for="star2">★</label>
+                    <input type="radio" name="rating" id="star1" value="1"><label for="star1">★</label>
+                </div>
+            </div>
+
+            <div id="attract-part">
+                <h3>履歷中哪個部分吸引了您？例如：技能、實習經驗等</h3><br>
+                <input type="text" id="attract-input" name="attract-input" placeholder="請輸入這份履歷吸引您的地方"/>
+            </div>
+
+            <div id="suggestion">
+                <h3>有什麼想建議改進的地方嗎？</h3><br>
+                <input type="text" id="suggest-input" name="suggest-input" placeholder="請輸入您寶貴的建議"/>
+            </div>
+
+            <div id="user-info">
+                <h3>您是誰呢？</h3><br>
+                <div class="info-contanier">
+                    <div id="company-wrap">
+                        <label>公司名稱（選填）</label>
+                        <input type="text" id="company-name" name="company-name" placeholder="請輸入您的公司名稱"/><br>
+                    </div>
+                    <div id="identity-wrap">
+                        <label>您的身分（選填）</label>
+                        <select name="identity">
+                        <option value="">請選擇您的身分</option>
+                        <option value="HR">HR</option>
+                        <option value="interviewer">面試官</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div id="email-contact">
+                <h3>如果願意被回覆，可以留下你的 Email（選填）</h3><br>
+                <input type="text" name="email" placeholder="example@mail.com"/>
+            </div>
+
+            <div class="feedback-input">
+                <button onclick="sendFeedback()">送出</button>
+            </div>
+        </form>
+        <div id="popup-overlay" style="display: none;">
+            <div id="popup-box">
+              <h3>感謝您耐心的填寫</h3><br>
+              <h3>希望能有參加面試、面談的機會，如果有進一步消息，歡迎與我 email 或手機聯絡，謝謝！</h3><br>
+              <button onclick="closePopup()">關閉</button>
+            </div>
+        </div>
+
+
+    </body>
+
+
+<!--div id="attract-part">
+    <h3>履歷中哪個部分最吸引您？（可複選）</h3><br>
+
+    <div id="skillOptions">
+        <label>技術技能</label><br>
+        <div><input type="checkbox" name="skill1" id="skill1" value="Frontend"><label for="skill1">前端技術：HTML, CSS, JS</label></div>
+        <div><input type="checkbox" name="skill2" id="skill2" value="Backend"><label for="skill2">後端技術：Python</label></div>
+        <div><input type="checkbox" name="skill3" id="skill3" value="Database & Query Language"><label for="skill3">資料庫與查詢語言：SQL Server, Firebase</label></div>
+        <div><input type="checkbox" name="skill4" id="skill4" value="Cloud Service"><label for="skill4">雲端部署：GCP</label></div>
+        <div><input type="checkbox" name="skill5" id="skill5" value="AI"><label for="skill5">AI應用：OpenAI, Gemini, Copilot</label></div>
+    </div>
+
+    <div id="expOptions">
+        <label>實習及專案經驗</label><br>    
+        <div><input type="checkbox" name="exp1" id="exp1" value="Website"><label for="exp1">履歷網頁</label></div>
+        <div><input type="checkbox" name="exp2" id="exp2" value="Crawler"><label for="exp2">爬蟲與自動化</label></div>
+        <div><input type="checkbox" name="exp3" id="exp3" value="Fin-System"><label for="exp3">金融數據擷取系統：串接金融終端API</label></div>
+    </div>
+
+    <div id="otherInput">
+        <label>其他</label>
+        <input type="text" name="other" placeholder="請輸入吸引你的地方">
+    </div>
+</div-->
