@@ -23,7 +23,7 @@ body {
     text-align: center;
 }
 
-#photo-container {
+photo-container {
     display: flex;
     align-items: center; /* 垂直置中 */
     justify-content: center; /* 水平置中 */
@@ -39,19 +39,172 @@ body {
     margin: 0 auto;
 }
 
-#ai-assistant {
-    position: absolute;
-    left: 60px; /* 調整 AI 助理的位置，讓它在圖片左邊 */
-    top: 30%; /* 垂直置中 */
-    transform: translateY(-30%);
-    width: 60px; /* AI 助理大小 */
-    height: 60px;
+#ai-frame {
+  position: absolute;
+  left: 170px; /* 調整 AI 助理的位置，讓它在圖片左邊 */
+  top:48%; /* 垂直置中 */
+  transform: translateY(-30%);
+  width: 350px; /* AI 助理大小 */
+  height: 350px;
 }
+
+
+
+
+/*
+#ai-frame img {
+  width: 400px;
+  height: 400px;
+}
+
+
+
+#ai-assistant, #svg-preload, 
 
 #ai-assistant img {
     width: 400px;
     height: 400px;
 }
+
+#svg-preload img {
+    width: 400px;
+    height: 400px;
+}
+
+*/
+
+
+
+
+
+
+
+
+.chatbox {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 400px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    overflow: hidden;
+    z-index: 1000;
+  }
+
+.chatbox-header {
+  background-color: #0073e6;
+  color: white;
+  padding: 12px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chatbox-body {
+  height: 350px;
+  padding: 10px;
+  overflow-y: auto;
+  background-color: #f1f1f1; 
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chatbox-preset-btn {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: #f1f1f1;
+  padding: 10px;
+  gap: 10px;
+}
+
+.preset-btn {
+  background-color: transparent;
+  color: #0073e6;
+  border: 1px solid #0073e6;
+  border-radius: 8px;
+  padding: 10px 10px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+  font-size: 12px;
+}
+
+.preset-btn:hover {
+  background-color: rgba(0, 115, 230, 0.1);
+}
+
+.chatbox-input {
+  display: flex;
+  border-top: 1px solid #ccc;
+  background-color: transparent;
+}
+
+.chatbox-input input {
+  flex: 1;
+  padding: 16px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
+.chatbox-input button {
+  background-color: #0073e6;
+  color: white;
+  border: none;
+  padding: 12px 15px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.message {
+  max-width: 75%;
+  padding: 10px 14px;
+  border-radius: 18px;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.message.bot {
+  background-color: #a1c7d9;
+  color: #333;
+  align-self: flex-start;
+  border-bottom-left-radius: 0;
+}
+
+.message.user {
+  background-color: #849fca;
+  color: #333;
+  align-self: flex-end;
+  border-bottom-right-radius: 0;
+}
+
+.export-btn, .feedback-btn {
+  margin-top: 8px;
+  padding: 6px 12px;
+  background-color: #a1c7d9;
+  color: #0073e6;
+  border: 1px solid #0073e6;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.export-btn:hover {
+  background-color: rgba(0, 115, 230, 0.1);
+}
+
+.feedback-btn:hover {
+  background-color: rgba(0, 115, 230, 0.1);
+}
+
+
+
+
+
 
 #contact, #skill, #education, #language, #advantage, #experience {
     margin-top: 20px;
