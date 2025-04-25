@@ -7,6 +7,19 @@ body {
     color: #333;
 }
 
+ul {
+  line-height: 1.6;
+  padding-left: 20px;
+}
+ul li {
+  margin-bottom: 10px;
+}
+
+h1, h3 {
+  color: #0073e6;
+}
+
+
 /* 主內容區域 */
 #info_wrapper {
     display: block;
@@ -18,18 +31,25 @@ body {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
+#contact, #skill, #education, #language, #advantage, #experience {
+  margin-top: 20px;
+  padding: 20px;
+  background: white;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+
 /* 區塊設定 */
+/* 名稱 */
 #name {
     text-align: center;
 }
 
-photo-container {
-    display: flex;
-    align-items: center; /* 垂直置中 */
-    justify-content: center; /* 水平置中 */
-    position: relative;
-}
-
+/* 個人照片 */
 #photo {
     width: 300px;
     height: 300px;
@@ -39,47 +59,18 @@ photo-container {
     margin: 0 auto;
 }
 
+/* AI小助理 */
 #ai-frame {
   position: absolute;
-  left: 170px; /* 調整 AI 助理的位置，讓它在圖片左邊 */
-  top:48%; /* 垂直置中 */
+  left: 170px; 
+  top:48%;
   transform: translateY(-30%);
-  width: 350px; /* AI 助理大小 */
+  width: 350px; 
   height: 350px;
 }
 
 
-
-
-/*
-#ai-frame img {
-  width: 400px;
-  height: 400px;
-}
-
-
-
-#ai-assistant, #svg-preload, 
-
-#ai-assistant img {
-    width: 400px;
-    height: 400px;
-}
-
-#svg-preload img {
-    width: 400px;
-    height: 400px;
-}
-
-*/
-
-
-
-
-
-
-
-
+/* 對話框 */
 .chatbox {
     display: none;
     flex-direction: column;
@@ -203,20 +194,6 @@ photo-container {
 
 
 
-
-
-
-#contact, #skill, #education, #language, #advantage, #experience {
-    margin-top: 20px;
-    padding: 20px;
-    background: white;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
-
 /* 聯絡資訊 */
 #contact ul {
     list-style: none;
@@ -243,12 +220,4 @@ photo-container {
     margin: 5px 0;
 }
 
-/* 標題設定 */
-h1, h3 {
-    color: #0073e6;
-}
 
-/* 清單樣式 */
-ul {
-    padding-left: 20px;
-}

@@ -1,55 +1,4 @@
 // SVG animation
-/*
-const svgs = [
-  '/static/AI_1.svg',
-  '/static/AI_2.svg',
-  '/static/AI_3.svg',
-  '/static/AI_4.svg',
-  '/static/AI_3.svg',
-  '/static/AI_2.svg'
-];
-
-
-let svg_num = 0;
-let animation = null;
-const svg = document.getElementById('svg-frame');
-
-function nextSVG() {
-  svg.setAttribute('src', svgs[svg_num]);
-  svg_num = (svg_num + 1) % svgs.length;
-}
-animation = setInterval(nextSVG, 400);  
-
-const svgPaths = [
-  '/static/AI_1.svg',
-  '/static/AI_2.svg',
-  '/static/AI_3.svg',
-  '/static/AI_4.svg',
-  '/static/AI_3.svg',
-  '/static/AI_2.svg'
-];
-
-// 預先建立圖片物件（存在記憶體）
-const preloadedImages = svgPaths.map(path => {
-  const img = new Image();
-  img.src = path;
-  return img;
-});
-
-let svgIndex = 0;
-const svgFrame = document.getElementById('svg-frame');
-
-function nextSVG() {
-  svgFrame.src = preloadedImages[svgIndex].src;
-  svgIndex = (svgIndex + 1) % preloadedImages.length;
-}
-
-setInterval(nextSVG, 400);
-
-
-*/
-
-
 const frames = document.querySelectorAll(".ai-frame");
 let current = 0;
 
@@ -64,7 +13,6 @@ animation = setInterval(() => {
 function toggleChat() {
     const chatbox = document.getElementById('chatbox');
     const frames = document.querySelectorAll('.ai-frame');
-    //const svg = document.getElementById('ai-frame');
     const isChatBoxHidden = window.getComputedStyle(chatbox).display === 'none';
     
     if (isChatBoxHidden) {
@@ -73,7 +21,6 @@ function toggleChat() {
       frames.forEach(frame => frame.style.display = 'none');
       frames[0].src = '/static/AI_assistant_chating.svg';
       frames[0].style.display = 'block';
-      //svg.src = '/static/AI_assistant_chating.svg';
       animation = null;
     } else {
       chatbox.style.display = 'none';
@@ -87,8 +34,7 @@ function toggleChat() {
         frames[current].style.display = "block";
       }, 400);
     }
-  }
-  
+  }  
 
 
 // create user id
@@ -100,7 +46,6 @@ function getOrCreateUserId() {
   }
   return userId;
 }
-
 
 
 // turn **Words** into bold
@@ -151,17 +96,14 @@ async function sendMessage() {
     });
 
     const data = await res.json();
-    //botMsg.textContent = data.response;
     if (data.spell_response) {
       botMsg.textContent = data.spell_response;
       const resMsg = document.createElement('div');
       resMsg.className = 'message bot';
       resMsg.innerHTML = formatBold(data.ques_response);
-      //resMsg.textContent = data.ques_response;
       chatBody.appendChild(resMsg);
     } else {
       botMsg.innerHTML = formatBold(data.ques_response);
-      //botMsg.textContent = data.ques_response;
     }
     chatBody.scrollTop = chatBody.scrollHeight;
     
@@ -171,12 +113,14 @@ async function sendMessage() {
       botMsg.textContent = '小助理目前不想上班，請稍後再試';
     }*/
 
+
 // preset botton
 function fillInput(text) {
     const input = document.getElementById('user-input');
     input.value = text;
     input.focus();
   }
+
 
 // add export button
 function addExportButton() {
@@ -187,6 +131,7 @@ function addExportButton() {
   chatBody.appendChild(botMsg);
   chatBody.scrollTop = chatBody.scrollHeight;
 }
+
 
 // export PDF
 function exportPDF() {
@@ -215,23 +160,6 @@ function jumpToFeedback() {
   window.location.href = '/feedback';
 }
 
-// reveal detail checkbox
-/*function eventListner(item, itemOptions) {
-  item.addEventListener("change", () => {
-    itemOptions.style.display = item.checked ? "flex" : "none";
-  });
-}
-const skills = document.getElementById("part1");
-const skillOptions = document.getElementById("skillOptions");
-const exp = document.getElementById("part2");
-const expOptions = document.getElementById("expOptions");
-const other = document.getElementById("part6");
-const otherInput = document.getElementById("otherInput");*/
-
-//eventListner(skills, skillOptions);
-//eventListner(exp, expOptions);
-//eventListner(other, otherInput);
-
 
 // send feedback
 function sendFeedback(event) {
@@ -240,12 +168,6 @@ function sendFeedback(event) {
   const userId = getOrCreateUserId();
   const form = document.getElementById("fb-form");
   const formData = new FormData(form);
-
-  // 轉換 checkbox 的 attract（複選）
-  /*const attractOptions = [];
-  form.querySelectorAll('input[type="checkbox"]:checked').forEach(cb => {
-    attractOptions.push(cb.value);
-  });*/
 
   const data = {
     user_id: userId,
@@ -275,6 +197,7 @@ function sendFeedback(event) {
   });
 
 }
+
 
 // close popup
 function closePopup() {
