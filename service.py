@@ -29,7 +29,7 @@ def gen_response(prompt, model = "gemini-2.0-flash"):
     return response.text
 
 
-# system 0: detect incorrect spelling
+# system 1: detect incorrect spelling
 def incorrect_spelling(user_input):
     incorrect_spelling = False
     prompt = f"""
@@ -47,23 +47,6 @@ def incorrect_spelling(user_input):
     print(response)
 
     return response, incorrect_spelling
-
-
-
-# system 1: distinguish relative
-def filter_relative_chat_history(user_input):
-    prompt = f"""
-        現在輸入的新問題：「{user_input}」
-        請你判斷目前為止所有的對話紀錄中，哪些句子與這個問題有明確語意關聯性，請你直接輸出「完整對話內容」，不需要解釋或評論，只保留相關的對話即可。
-        如果沒有相關對話，請回覆「無相關內容」。
-        """
-    response = gen_response(prompt)
-    match = re.search(r'新問題：「(.*?)」', response)
-    if match:
-        response = match.group(1)
-    print(response)
-
-    return response
 
 
 # system 2: classify question number
@@ -103,7 +86,7 @@ def classify_question(user_input, classifier, exp_classifier, else_classifier):
 
 
 # system 3: generate answer
-def generate_response(user_input, resume_data, main_response): #filter, 
+def generate_response(user_input, resume_data, main_response): 
     if int(main_response) == 10 or int(main_response) == 0: #情境或其他
         prompt = resume_data
 
@@ -120,14 +103,6 @@ def generate_response(user_input, resume_data, main_response): #filter,
     print(response)
 
     return response
-
-'''
-        prompt = f"""
-        請根據面試者詢問的情境題：「{user_input}」，回答一個能讓面試者滿意的答案，100字以內
-        若要列點，請用米字號將標題標記出來，例如：**標題**
-        """
-
-'''
 
 
 # record chat history
