@@ -36,7 +36,7 @@ The AI Assistant provides interactive responses to questions about my background
     ├── feedback.html      # for Feedback website
 ├── database.py            # Handle database data
 ├── firebase_init.py       # Initializes Firebase
-├── Flask.py               # Main Flask application entry point
+├── main.py               # Main Flask application entry point
 ├── service.py             # Contains core business logic and helper functions
 └── README.md              # Project documentation
 ```
