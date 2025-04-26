@@ -58,13 +58,21 @@
             </div>
 
             <div id="email-contact">
+                <h3>想對宣葇說的話（選填）</h3><br>
+                <input type="text" name="note" placeholder="請輸入想留給宣葇的訊息"/>
                 <h3>如果願意被回覆，可以留下你的 Email（選填）</h3><br>
                 <input type="text" name="email" placeholder="example@mail.com"/>
             </div>
 
-            <div class="feedback-input">
-                <button onclick="sendFeedback()">送出</button>
+            <div class="end-btn-container">
+                <div class="end-btn" id="feedback-input">
+                    <button onclick="sendFeedback()">送出</button>
+                </div>
+                <div class="end-btn" id="return-button">
+                    <button onclick="returnHomePage()">回到上一頁</button>
+                </div>
             </div>
+
         </form>
         <div id="popup-overlay" style="display: none;">
             <div id="popup-box">
