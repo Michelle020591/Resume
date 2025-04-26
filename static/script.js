@@ -47,6 +47,16 @@ function getOrCreateUserId() {
   return userId;
 }
 
+// add feedback button
+function addFeedbackButton() {
+  const chatBody = document.getElementById('chat-body');
+  const botMsg = document.createElement('div');
+  botMsg.className = 'message bot';
+  botMsg.innerHTML = '<p>您可以點擊下方按鈕填寫使用回饋表單</p><button class="feedback-btn" onclick="jumpToFeedback()">填寫回饋表單</button>';
+  chatBody.appendChild(botMsg);
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+
 
 // turn **Words** into bold
 function formatBold(text) {
@@ -55,6 +65,7 @@ function formatBold(text) {
   .replace(/\n/g, '<br>');
 
 }
+
 
 // send message to flask
 async function sendMessage() {
@@ -88,7 +99,8 @@ async function sendMessage() {
     chatBody.appendChild(botMsg);
     chatBody.scrollTop = chatBody.scrollHeight;
   
-
+    //http://127.0.0.1:5000
+    //https://r20250425.de.r.appspot.com
     const res = await fetch('http://127.0.0.1:5000/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -144,15 +156,7 @@ function exportPDF() {
 }
 
 
-// add feedback button
-function addFeedbackButton() {
-  const chatBody = document.getElementById('chat-body');
-  const botMsg = document.createElement('div');
-  botMsg.className = 'message bot';
-  botMsg.innerHTML = '<p>您可以點擊下方按鈕填寫使用回饋表單</p><button class="feedback-btn" onclick="jumpToFeedback()">填寫回饋表單</button>';
-  chatBody.appendChild(botMsg);
-  chatBody.scrollTop = chatBody.scrollHeight;
-}
+
 
 
 // jump to feedback page
@@ -179,6 +183,8 @@ function sendFeedback(event) {
     email: formData.get("email") || null
   };
   
+  //http://127.0.0.1:5000
+  //https://r20250425.de.r.appspot.com
   fetch("http://127.0.0.1:5000/feedback", {
     method: "POST",
     headers: {"Content-Type": "application/json"},
@@ -204,5 +210,9 @@ function closePopup() {
   document.getElementById("popup-overlay").style.display = "none";
 }
 
+// return to home page
+function returnHomePage() {
+  window.location.href = '/';
+}
 
 
