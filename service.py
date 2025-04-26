@@ -8,6 +8,7 @@ from datetime import datetime
 
 # Gemini login
 def get_gemini_key():
+    #api_key = os.environ.get("gemini_key")
     load_dotenv(dotenv_path='.env')
     api_key = os.getenv("gemini_key")
     print("Got Gemini Key!")
@@ -15,14 +16,14 @@ def get_gemini_key():
 
 
 # generate response
-def gen_response(prompt, model = "gemini-2.0-flash"):
+def gen_response(prompt, model = "gemini-2.0-flash", temperature = 0):
     client = genai.Client(api_key=get_gemini_key())
     response = client.models.generate_content(
         model = model, 
         contents = prompt,
         config = types.GenerateContentConfig(
-            temperature=0,
-            system_instruction=[
+            temperature = temperature,
+            system_instruction = [
             types.Part.from_text(text="""你是宣葇的AI小助手，用輕鬆但帶有專業的語氣回答使用者的問題，不用說哈囉或強調你是宣葇AI小助手"""),
         ])
     )
@@ -88,18 +89,22 @@ def classify_question(user_input, classifier, exp_classifier, else_classifier):
 # system 3: generate answer
 def generate_response(user_input, resume_data, main_response): 
     if int(main_response) == 10 or int(main_response) == 0: #情境或其他
-        prompt = resume_data
+        prompt = f"""
+            問題：{user_input}\n{resume_data}
+            """
+        response = gen_response(prompt, temperature=0.15)
 
     else:
         prompt = f"""
             只能根據以下履歷資料：{resume_data}\n
             回答問題：{user_input}
-            回答方式：請站在你是AI小助手的角度回答，100字為限
+            如果問題的主詞是「你」或是沒有提及主詞，預設在問宣葇
+            回答方式：幫宣葇回答問題，100字為限
             若要列點，請用米字號將標題標記出來，例如：**標題**
-            如果履歷內容沒有辦法回答，請回覆：「這個問題宣葇沒有告訴我，我再幫您問問她！」
             """
+        response = gen_response(prompt)
+    
     print(prompt)
-    response = gen_response(prompt)
     print(response)
 
     return response

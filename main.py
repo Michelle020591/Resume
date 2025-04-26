@@ -48,6 +48,10 @@ def chat():
 
     # generate response
     ques_response = service.generate_response(user_input, ref, main_id)
+    print(type(ques_response))
+    if int(main_id) == 0 and else_id != None and int(else_id) == 1:
+        ques_response += '''<button class="feedback-btn" onclick="jumpToFeedback()">填寫回饋表單</button>'''
+        print(ques_response)
 
     # record chat history
     records = service.record_chat_history(chat_history, user_input, ques_response, spell_response, main_id, exp_id, else_id)

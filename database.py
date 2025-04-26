@@ -2,7 +2,6 @@ from dotenv import load_dotenv
 from firebase_admin import firestore
 from firebase_init import db
 
-
 # connect to firestore and get resume data
 # https://blog.csdn.net/weixin_44346972/article/details/106747178
 def get_firestore_data(resume_data):
