@@ -11,30 +11,33 @@ animation = setInterval(() => {
 
 // chatbox switch on/off
 function toggleChat() {
-    const chatbox = document.getElementById('chatbox');
-    const frames = document.querySelectorAll('.ai-frame');
-    const isChatBoxHidden = window.getComputedStyle(chatbox).display === 'none';
-    
-    if (isChatBoxHidden) {
-      chatbox.style.display = 'flex';
-      clearInterval(animation);
-      frames.forEach(frame => frame.style.display = 'none');
-      frames[0].src = '/static/AI_assistant_chating.svg';
-      frames[0].style.display = 'block';
-      animation = null;
-    } else {
-      chatbox.style.display = 'none';
-      clearInterval(animation);
-      frames[0].src = '/static/AI_1.svg'; 
-      let current = 0;
-      frames.forEach((frame, index) => frame.style.display = index === 0 ? 'block' : 'none');
-      animation = setInterval(() => {
-        frames[current].style.display = "none";
-        current = (current + 1) % frames.length;
-        frames[current].style.display = "block";
-      }, 400);
-    }
-  }  
+  const chatbox = document.getElementById('chatbox');
+  const frames = document.querySelectorAll('.ai-frame');
+  const aiFrame = document.getElementById('ai-frame');
+  const isChatBoxHidden = window.getComputedStyle(chatbox).display === 'none';
+  
+  if (isChatBoxHidden) {
+    chatbox.style.display = 'flex';
+    clearInterval(animation);
+    frames.forEach(frame => frame.style.display = 'none');
+    frames[0].src = '/static/AI_assistant_chating.svg';
+    frames[0].style.display = 'block';
+    aiFrame.style.right = '350px';
+    animation = null;
+  } else {
+    chatbox.style.display = 'none';
+    clearInterval(animation);
+    frames[0].src = '/static/AI_1.svg'; 
+    aiFrame.style.right = '5px';
+    let current = 0;
+    frames.forEach((frame, index) => frame.style.display = index === 0 ? 'block' : 'none');
+    animation = setInterval(() => {
+      frames[current].style.display = "none";
+      current = (current + 1) % frames.length;
+      frames[current].style.display = "block";
+    }, 400);
+  }
+}   
 
 
 // create user id
