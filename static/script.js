@@ -104,7 +104,7 @@ async function sendMessage() {
   
     //http://127.0.0.1:5000
     //https://r20250425.de.r.appspot.com
-    const res = await fetch('https://r20250425.de.r.appspot.com/chat', {
+    const res = await fetch('/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ user_id: userId, message: message })
@@ -188,7 +188,7 @@ function sendFeedback(event) {
   
   //http://127.0.0.1:5000
   //https://r20250425.de.r.appspot.com
-  fetch("https://r20250425.de.r.appspot.com/feedback", {
+  fetch("/feedback", {
     method: "POST",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify(data)
