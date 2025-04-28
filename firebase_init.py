@@ -7,10 +7,10 @@ from firebase_admin import credentials
 
 
 # init
-#cred_json = os.environ.get("firebase_cred")
-#cred_dict = json.loads(cred_json)
-#cred = credentials.Certificate(cred_dict)
-cred = credentials.Certificate("firebase_cred.json")
+cred_json = os.environ.get("firebase_cred")
+cred_dict = json.loads(cred_json)
+cred = credentials.Certificate(cred_dict)
+# cred = credentials.Certificate("firebase_cred.json")
 firebase_admin.initialize_app(cred)
 
 # connect to database

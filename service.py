@@ -8,9 +8,9 @@ from datetime import datetime
 
 # Gemini login
 def get_gemini_key():
-    #api_key = os.environ.get("gemini_key")
-    load_dotenv(dotenv_path='.env')
-    api_key = os.getenv("gemini_key")
+    api_key = os.environ.get("gemini_key")
+    #load_dotenv(dotenv_path='.env')
+    #api_key = os.getenv("gemini_key")
     print("Got Gemini Key!")
     return api_key
 
