@@ -49,7 +49,7 @@ def chat():
     # generate response
     ques_response = service.generate_response(user_input, ref, main_id)
     print(type(ques_response))
-    if (int(main_id) == 0 and else_id != None and int(else_id) == 1) or (int(main_id) == 19):
+    if (int(main_id) == 0 and else_id != None and int(else_id) == 1) or (int(main_id) == 17):
         ques_response += '''<button class="feedback-btn" onclick="jumpToFeedback()">填寫回饋表單</button>'''
         print(ques_response)
 
